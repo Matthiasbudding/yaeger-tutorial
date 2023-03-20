@@ -15,24 +15,29 @@ import java.util.Set;
 public class Hanny extends DynamicSpriteEntity implements KeyListener, SceneBorderTouchingWatcher, Newtonian, Collided {
 
     private HealthText healthText;
-    public Hanny(Coordinate2D location){
-        super("sprites/hanny.png", location, new Size(20,40), 1, 2);
+    private int health = 10;
+
+    public Hanny(Coordinate2D location, HealthText healthtext) {
+        super("sprites/hanny.png", location, new Size(20, 40), 1, 2);
+
+        this.healthText = healthText;
+        healthText.setHealthText(health);
+
         setGravityConstant(0.005);
         setFrictionConstant(0.04);
-
     }
 
 
     @Override
     public void onPressedKeysChange(Set<KeyCode> pressedKeys) {
-        if(pressedKeys.contains(KeyCode.LEFT)){
-            setMotion(3,270d);
-        } else if(pressedKeys.contains(KeyCode.RIGHT)){
-            setMotion(3,90d);
-        } else if(pressedKeys.contains(KeyCode.UP)){
-            setMotion(3,180d);
-        } else if(pressedKeys.contains(KeyCode.DOWN)){
-            setMotion(3,0d);
+        if (pressedKeys.contains(KeyCode.LEFT)) {
+            setMotion(3, 270d);
+        } else if (pressedKeys.contains(KeyCode.RIGHT)) {
+            setMotion(3, 90d);
+        } else if (pressedKeys.contains(KeyCode.UP)) {
+            setMotion(3, 180d);
+        } else if (pressedKeys.contains(KeyCode.DOWN)) {
+            setMotion(3, 0d);
         }
     }
 
@@ -46,7 +51,7 @@ public class Hanny extends DynamicSpriteEntity implements KeyListener, SceneBord
     public void notifyBoundaryTouching(SceneBorder border) {
         setSpeed(2);
 
-        switch(border){
+        switch (border) {
             case TOP:
                 setAnchorLocationY(1);
                 break;
@@ -66,9 +71,11 @@ public class Hanny extends DynamicSpriteEntity implements KeyListener, SceneBord
     @Override
     public void onCollision(Collider collidingobject) {
         setAnchorLocation(
-                new Coordinate2D(new Random().nextInt((int)(getSceneWidth()
+                new Coordinate2D(new Random().nextInt((int) (getSceneWidth()
                         - getWidth())),
-                        new Random().nextInt((int)(getSceneHeight() - getHeight())))
+                        new Random().nextInt((int) (getSceneHeight() - getHeight())))
         );
+        health--;
+        healthText.setHealthText(health);
     }
 }

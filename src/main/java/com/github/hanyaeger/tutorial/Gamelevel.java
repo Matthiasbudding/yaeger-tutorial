@@ -9,6 +9,7 @@ import com.github.hanyaeger.tutorial.entities.text.HealthText;
 public class Gamelevel extends DynamicScene {
 
     private Waterworld waterworld;
+    private HealthText healthText;
 
     public Gamelevel(Waterworld waterworld) {
         this.waterworld = waterworld;
@@ -23,10 +24,10 @@ public class Gamelevel extends DynamicScene {
     public void setupEntities() {
         Swordfish swordfish = new Swordfish(new Coordinate2D(getWidth() / 2, getHeight() / 1.5));
         addEntity(swordfish);
-        Hanny hanny = new Hanny(new Coordinate2D(getWidth() / 10, getHeight() / 10));
+        Hanny hanny = new Hanny(new Coordinate2D(getWidth() / 10, getHeight() / 10), healthText);
         addEntity(hanny);
-//        var healthText = new HealthText(new Coordinate2D(50, 50));
-//        addEntity(healthText);
+        HealthText healthText = new HealthText(new Coordinate2D(50, 50));
+        addEntity(healthText);
     }
 
 
