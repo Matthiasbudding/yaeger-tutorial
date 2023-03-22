@@ -12,6 +12,8 @@ public class Mario extends YaegerGame {
 
     @Override
     public void setupScenes() {
+        addScene(0, new Titlescene(this));
+        addScene(1, new Gamelevel(this));
 
     }
 
